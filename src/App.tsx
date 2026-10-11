@@ -108,14 +108,14 @@ export default function App() {
                 BMMS Capital LLC / Intelligence and AI systems
               </span>
               <h1 className="mb-8 max-w-5xl text-5xl font-bold leading-[0.94] tracking-[-0.055em] md:text-7xl lg:text-8xl">
-                Know sooner.<br />Act smarter.
+                Firm boundaries.<br />Fluid intelligence.
               </h1>
               <p className="mb-8 max-w-3xl text-2xl font-semibold leading-tight md:text-3xl">
-                Turn trusted information and AI into practical, governed capability.
+                Accelerate enterprise AI innovation within clear governance boundaries.
               </p>
               <p className="mb-10 max-w-2xl text-lg leading-relaxed text-[#5E625F] md:text-xl">
-                BMMS Intelligence helps firms move from AI interest to useful work. We design clear workflows,
-                place evidence and human review where they matter, and make accountability visible.
+                BMMS Intelligence helps organizations improve AI workflows continuously within agreed controls.
+                The aim: faster learning, more useful intelligence, and a clear path to approval when the boundaries need to change.
               </p>
               <div className="flex flex-wrap gap-4">
                 <a
@@ -157,11 +157,11 @@ export default function App() {
                 What we do
               </span>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 max-w-3xl">
-                We help firms make AI part of real work.
+                Make continuous improvement part of the operating model.
               </h2>
               <p className="mb-16 max-w-3xl text-lg leading-relaxed text-[#5E625F] md:text-xl">
-                The goal is simple: move beyond demos and pilot projects. We help firms choose a workflow that matters,
-                shape it around the way people already work, and build the structure needed to use AI with confidence.
+                AI capability evolves quickly. Enterprise accountability must keep pace. We help leadership teams define
+                what can improve within agreed controls, what requires approval, and how to assess business value as the work evolves.
               </p>
             </motion.div>
 
@@ -174,16 +174,16 @@ export default function App() {
             >
               {[
                 {
-                  title: "Set the direction",
-                  desc: "We help leadership teams decide where AI can create value, where it should not be used, and what success should look like."
+                  title: "Define the envelope",
+                  desc: "Agree the permitted data, access, actions, review requirements, and owners. Establish what success looks like before expanding the workflow."
                 },
                 {
-                  title: "Design the workflow",
-                  desc: "We map the process, define where AI helps, and make sure the work still has clear ownership and review."
+                  title: "Improve within it",
+                  desc: "Refine interfaces, prompts, synthesis, and intelligence products within those boundaries. Use evidence and feedback to assess quality and usefulness."
                 },
                 {
-                  title: "Make it usable",
-                  desc: "We put the right controls, documentation, and decision points in place so the workflow can be used in the real world."
+                  title: "Expand deliberately",
+                  desc: "When a change affects identity, permissions, sensitive data, security, or consequential actions, bring it through the agreed approval process before release."
                 }
               ].map((item, i) => (
                 <motion.div key={i} variants={fadeIn} className="brand-proof group">
@@ -208,15 +208,15 @@ export default function App() {
                 How it works
               </span>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-16">
-                Start with one workflow worth improving.
+                Start with value. Define the boundaries. Keep improving.
               </h2>
             </motion.div>
 
             <div className="grid md:grid-cols-2 gap-16 items-start">
               <motion.div {...fadeIn}>
                 <p className="text-lg leading-relaxed text-[#5E625F] md:text-xl">
-                  We begin with one high-value process. From there, we identify where AI can help, what needs human review,
-                  and what the team needs in order to trust the output.
+                  We begin with one high-value process and the controls it needs. Then we separate improvements within
+                  the agreed envelope from changes to the envelope itself, with clear ownership and evidence at each step.
                 </p>
               </motion.div>
               <motion.ul 
@@ -228,9 +228,9 @@ export default function App() {
               >
                 {[
                   "Choose a workflow with clear business value",
-                  "Define roles, review points, and expected output",
-                  "Build a process that fits the team and the work",
-                  "Refine based on use, feedback, and results"
+                  "Agree data, access, actions, and human review",
+                  "Evaluate improvements within those controls",
+                  "Approve boundary changes before release"
                 ].map((item, i) => (
                   <motion.li 
                     key={i} 
@@ -243,6 +243,24 @@ export default function App() {
                 ))}
               </motion.ul>
             </div>
+
+            <div className="mt-16 grid gap-12 md:grid-cols-2">
+              {[
+                {
+                  title: "Within the envelope",
+                  desc: "Interfaces, prompts, synthesis methods, taxonomies, and intelligence products can evolve continuously when they stay within agreed data, access, and action limits and meet review and quality requirements."
+                },
+                {
+                  title: "Changing the envelope",
+                  desc: "Changes to identity, permissions, sensitive-data boundaries, security architecture, or consequential external actions require deliberate approval. If an improvement crosses those limits, it follows this path too."
+                }
+              ].map((item) => (
+                <motion.div key={item.title} {...fadeIn} className="brand-proof">
+                  <h3 className="mb-4 text-2xl font-bold">{item.title}</h3>
+                  <p className="leading-relaxed text-[#5E625F]">{item.desc}</p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -252,10 +270,12 @@ export default function App() {
             <motion.div {...fadeIn}>
               <span className="brand-label mb-8 block">Our point of view</span>
               <blockquote className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-12 max-w-5xl">
-                "The firms that get the most from AI will not be the ones that talk about it the most. They will be the ones that know where it fits and how to use it well."
+                “Move fast inside the governed envelope. Slow down when we change the envelope.”
               </blockquote>
               <p className="max-w-2xl text-lg text-[#D5D5CD] md:text-xl">
-                BMMS Intelligence helps clients build that bridge: from interest to action, from experiments to workflows, and from scattered effort to real capability.
+                This is the operating principle behind our approach. Clear boundaries give teams room to learn and improve,
+                while keeping changes to enterprise controls deliberate and accountable. The commercial opportunity is a shorter
+                path from feedback to useful capability, with governance focused on the decisions that need it.
               </p>
             </motion.div>
           </div>
@@ -269,7 +289,7 @@ export default function App() {
                 Who we work with
               </span>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-8 max-w-3xl">
-                Built for firms doing complex, high-trust work.
+                For organizations doing complex, high-trust work.
               </h2>
               <p className="mb-16 max-w-3xl text-lg leading-relaxed text-[#5E625F] md:text-xl">
                 We work with teams that need AI to be practical, clear, and well managed — especially in legal, finance, media, and other areas where accuracy, trust, and judgment matter.
@@ -353,11 +373,11 @@ export default function App() {
             <div className="grid md:grid-cols-5 gap-16">
               <motion.div {...fadeIn} className="md:col-span-3">
                 <p className="mb-6 text-lg leading-relaxed text-[#5E625F] md:text-xl">
-                  Engagements begin with a focused working session. We identify one workflow, define the constraints,
-                  and map a practical path forward.
+                  Engagements begin with a focused working session. We identify one valuable workflow, map its governance
+                  boundaries, and define what your team can improve within them.
                 </p>
                 <p className="text-lg leading-relaxed text-[#5E625F] md:text-xl">
-                  The goal is not a long strategy deck. It is a clear next step your team can use.
+                  Leave with a practical next step: clear owners, review requirements, and a way to assess value.
                 </p>
               </motion.div>
               <motion.div {...fadeIn} className="md:col-span-2 space-y-8">
