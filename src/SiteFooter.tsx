@@ -39,8 +39,8 @@ export function SiteFooter({ showBackToTop = false }: SiteFooterProps) {
         <div className="flex flex-col gap-5 text-sm text-[#5E625F] sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div>© {new Date().getFullYear()} BMMS Capital LLC. All rights reserved.</div>
-            <div className="mt-1 text-xs text-[#858985]">BMMS Intelligence is a DBA of BMMS Capital LLC.</div>
-            <div className="mt-1 text-xs text-[#858985]">Hudson Yards, New York, NY, United States</div>
+            <div className="mt-1 text-xs text-[#6B706C]">BMMS Intelligence is a DBA of BMMS Capital LLC.</div>
+            <div className="mt-1 text-xs text-[#6B706C]">Hudson Yards, New York, NY, United States</div>
           </div>
           {showBackToTop ? (
             <a

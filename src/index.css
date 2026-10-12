@@ -6,9 +6,10 @@
   --bmms-paper: #fbfbf8;
   --bmms-field: #f3f3ee;
   --bmms-muted: #5e625f;
-  --bmms-future: #858985;
+  --bmms-future: #6b706c;
   --bmms-rule: #d5d5cd;
   --bmms-signal: #d84b3e;
+  --bmms-signal-text: #bd3e33;
 }
 
 @theme {
@@ -27,17 +28,31 @@
   }
 
   :focus-visible {
-    outline-color: currentColor;
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
   }
 }
 
+main[id],
+main [id] {
+  scroll-margin-top: 5.5rem;
+}
+
 .brand-label {
-  color: var(--bmms-signal);
+  color: var(--bmms-signal-text);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   line-height: 1.4;
   text-transform: uppercase;
+}
+
+.brand-inverse .brand-label {
+  color: #ee8478;
+}
+
+.brand-contact-link {
+  color: var(--bmms-signal-text);
 }
 
 .brand-button-primary,
@@ -53,14 +68,14 @@
 }
 
 .brand-button-primary {
-  background: var(--bmms-signal);
-  border: 1px solid var(--bmms-signal);
+  background: var(--bmms-signal-text);
+  border: 1px solid var(--bmms-signal-text);
   color: var(--bmms-paper);
 }
 
 .brand-button-primary:hover {
-  background: #bd3e33;
-  border-color: #bd3e33;
+  background: #b0342b;
+  border-color: #b0342b;
 }
 
 .brand-button-secondary {
@@ -123,7 +138,7 @@
 
 .brand-rail-item-signal strong,
 .brand-rail-item-signal span {
-  color: var(--bmms-signal);
+  color: var(--bmms-signal-text);
 }
 
 .brand-proof {
@@ -241,9 +256,16 @@
   margin-top: 0.4rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .brand-rail {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .brand-rail-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0.75rem;
   }
 
   .brand-rail-item + .brand-rail-item {

@@ -3,27 +3,33 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getPolicyPage } from "./PolicyPages";
 import { SiteFooter } from "./SiteFooter";
 
-const fadeIn = {
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-};
-
-const staggerContainer = {
-  initial: {},
-  whileInView: { transition: { staggerChildren: 0.1 } },
-  viewport: { once: true }
-};
-
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const reduceMotion = useReducedMotion();
+  const fadeIn = {
+    initial: reduceMotion ? false : "hidden",
+    whileInView: "visible",
+    viewport: { once: true },
+    variants: {
+      hidden: { opacity: reduceMotion ? 1 : 0, y: reduceMotion ? 0 : 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: reduceMotion ? 0 : 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }
+      }
+    }
+  };
+  const staggerContainer = {
+    hidden: {},
+    visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.1 } }
+  };
   const policyPage = getPolicyPage(window.location.pathname);
 
   if (policyPage) {
@@ -40,8 +46,17 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FBFBF8] text-[#141516] selection:bg-[#141516] selection:text-[#FBFBF8]">
+      <a className="skip-link" href="#top">Skip to content</a>
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-[#D5D5CD] bg-[#FBFBF8]/95 backdrop-blur-md">
+      <header
+        className="sticky top-0 z-50 border-b border-[#D5D5CD] bg-[#FBFBF8]/95 backdrop-blur-md"
+        onKeyDown={(event) => {
+          if (event.key === "Escape" && isMenuOpen) {
+            setIsMenuOpen(false);
+            menuButtonRef.current?.focus();
+          }
+        }}
+      >
         <div className="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
           <a href="#" aria-label="BMMS Intelligence home" className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
             <img
@@ -52,7 +67,7 @@ export default function App() {
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav aria-label="Primary navigation" className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -66,10 +81,12 @@ export default function App() {
 
           {/* Mobile Menu Toggle */}
           <button
+            ref={menuButtonRef}
+            type="button"
             aria-controls="mobile-navigation"
             aria-expanded={isMenuOpen}
             aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            className="p-2 md:hidden"
+            className="p-2 lg:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -81,9 +98,10 @@ export default function App() {
           <motion.nav
             id="mobile-navigation"
             aria-label="Mobile navigation"
-            initial={{ opacity: 0, y: -10 }}
+            initial={reduceMotion ? false : { opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col gap-6 border-b border-[#D5D5CD] bg-[#FBFBF8] px-6 py-8 md:hidden"
+            transition={{ duration: reduceMotion ? 0 : 0.2 }}
+            className="flex max-h-[calc(100dvh-5rem)] flex-col gap-6 overflow-y-auto border-b border-[#D5D5CD] bg-[#FBFBF8] px-6 py-8 lg:hidden"
           >
             {navLinks.map((link) => (
               <a
@@ -99,7 +117,7 @@ export default function App() {
         )}
       </header>
 
-      <main id="top">
+      <main id="top" tabIndex={-1}>
         {/* Hero */}
         <section className="brand-hero border-b border-[#D5D5CD] pb-16 pt-24 md:pb-20 md:pt-32">
           <div className="max-w-6xl mx-auto px-6">
@@ -107,7 +125,7 @@ export default function App() {
               <span className="brand-label mb-8 block">
                 BMMS Capital LLC / Intelligence and AI systems
               </span>
-              <h1 className="mb-8 max-w-5xl text-5xl font-bold leading-[0.94] tracking-[-0.055em] md:text-7xl lg:text-8xl">
+              <h1 className="mb-8 max-w-5xl text-[clamp(2rem,10vw,3rem)] font-bold leading-[0.94] tracking-[-0.055em] md:text-7xl lg:text-8xl">
                 Firm boundaries.<br />Fluid intelligence.
               </h1>
               <p className="mb-8 max-w-3xl text-2xl font-semibold leading-tight md:text-3xl">
@@ -150,7 +168,7 @@ export default function App() {
         </section>
 
         {/* What We Do */}
-        <section id="what-we-do" className="border-b border-[#D5D5CD] py-24">
+        <section id="what-we-do" tabIndex={-1} className="border-b border-[#D5D5CD] py-24">
           <div className="max-w-6xl mx-auto px-6">
             <motion.div {...fadeIn}>
               <span className="brand-label mb-6 block">
@@ -167,8 +185,8 @@ export default function App() {
 
             <motion.div 
               variants={staggerContainer}
-              initial="initial"
-              whileInView="whileInView"
+              initial={reduceMotion ? false : "hidden"}
+              whileInView="visible"
               viewport={{ once: true }}
               className="grid md:grid-cols-3 gap-12"
             >
@@ -186,7 +204,7 @@ export default function App() {
                   desc: "When a change affects identity, permissions, sensitive data, security, or consequential actions, bring it through the agreed approval process before release."
                 }
               ].map((item, i) => (
-                <motion.div key={i} variants={fadeIn} className="brand-proof group">
+                <motion.div key={i} variants={fadeIn.variants} className="brand-proof group">
                   <span className="brand-proof-number">0{i + 1}</span>
                   <h3 className="mb-4 text-2xl font-bold transition-colors group-hover:text-[#5E625F]">
                     {item.title}
@@ -201,7 +219,7 @@ export default function App() {
         </section>
 
         {/* How It Works */}
-        <section id="how-it-works" className="border-b border-[#D5D5CD] bg-[#F3F3EE] py-24">
+        <section id="how-it-works" tabIndex={-1} className="border-b border-[#D5D5CD] bg-[#F3F3EE] py-24">
           <div className="max-w-6xl mx-auto px-6">
             <motion.div {...fadeIn}>
               <span className="brand-label mb-6 block">
@@ -221,8 +239,8 @@ export default function App() {
               </motion.div>
               <motion.ul 
                 variants={staggerContainer}
-                initial="initial"
-                whileInView="whileInView"
+                initial={reduceMotion ? false : "hidden"}
+                whileInView="visible"
                 viewport={{ once: true }}
                 className="space-y-6"
               >
@@ -234,7 +252,7 @@ export default function App() {
                 ].map((item, i) => (
                   <motion.li 
                     key={i} 
-                    variants={fadeIn}
+                    variants={fadeIn.variants}
                     className="flex gap-4 border-t border-[#D5D5CD] pt-5 text-lg text-[#5E625F]"
                   >
                     <span className="font-bold text-[#D84B3E]">—</span>
@@ -265,7 +283,7 @@ export default function App() {
         </section>
 
         {/* Quote Section */}
-        <section className="border-b border-[#D5D5CD] bg-[#101214] py-28 text-[#FBFBF8]">
+        <section className="brand-inverse border-b border-[#D5D5CD] bg-[#101214] py-28 text-[#FBFBF8]">
           <div className="max-w-6xl mx-auto px-6">
             <motion.div {...fadeIn}>
               <span className="brand-label mb-8 block">Our point of view</span>
@@ -282,7 +300,7 @@ export default function App() {
         </section>
 
         {/* Who We Work With */}
-        <section id="who-we-work-with" className="border-b border-[#D5D5CD] py-24">
+        <section id="who-we-work-with" tabIndex={-1} className="border-b border-[#D5D5CD] py-24">
           <div className="max-w-6xl mx-auto px-6">
             <motion.div {...fadeIn}>
               <span className="brand-label mb-6 block">
@@ -298,8 +316,8 @@ export default function App() {
 
             <motion.div 
               variants={staggerContainer}
-              initial="initial"
-              whileInView="whileInView"
+              initial={reduceMotion ? false : "hidden"}
+              whileInView="visible"
               viewport={{ once: true }}
               className="grid md:grid-cols-3 gap-12"
             >
@@ -317,7 +335,7 @@ export default function App() {
                   desc: "For businesses that want faster workflows without weakening standards or oversight."
                 }
               ].map((item, i) => (
-                <motion.div key={i} variants={fadeIn} className="brand-proof group">
+                <motion.div key={i} variants={fadeIn.variants} className="brand-proof group">
                   <span className="brand-proof-number">0{i + 1}</span>
                   <h3 className="mb-4 text-2xl font-bold transition-colors group-hover:text-[#5E625F]">
                     {item.title}
@@ -332,7 +350,7 @@ export default function App() {
         </section>
 
         {/* Founder */}
-        <section id="founder" className="border-b border-[#D5D5CD] bg-[#F3F3EE] py-24">
+        <section id="founder" tabIndex={-1} className="border-b border-[#D5D5CD] bg-[#F3F3EE] py-24">
           <div className="max-w-6xl mx-auto px-6">
             <motion.div {...fadeIn}>
               <span className="brand-label mb-6 block">
@@ -359,7 +377,7 @@ export default function App() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="border-b border-[#D5D5CD] py-24">
+        <section id="contact" tabIndex={-1} className="border-b border-[#D5D5CD] py-24">
           <div className="max-w-6xl mx-auto px-6">
             <motion.div {...fadeIn}>
               <span className="brand-label mb-6 block">
@@ -382,12 +400,12 @@ export default function App() {
               </motion.div>
               <motion.div {...fadeIn} className="md:col-span-2 space-y-8">
                 <div>
-                  <h4 className="mb-2 text-sm font-bold uppercase tracking-widest text-[#858985]">Email</h4>
+                  <h3 className="mb-2 text-sm font-bold uppercase tracking-widest text-[#6B706C]">Email</h3>
                   <p className="text-xl font-medium">support@bmms.capital</p>
                 </div>
                 <a
                   href="mailto:support@bmms.capital?subject=Working%20Session%20Request"
-                  className="group inline-flex items-center gap-2 text-lg font-bold text-[#D84B3E]"
+                  className="brand-contact-link group inline-flex items-center gap-2 text-lg font-bold"
                 >
                   Get in touch
                   <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
