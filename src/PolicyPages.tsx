@@ -50,7 +50,7 @@ function PolicyPage({ title, description, eyebrow, children }: PolicyPageProps) 
         </span>
         <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-6xl">{title}</h1>
         <p className="mb-4 max-w-3xl text-lg leading-relaxed text-[#5E625F]">{description}</p>
-        <p className="mb-14 text-sm font-semibold text-[#858985]">Effective: {EFFECTIVE_DATE}</p>
+        <p className="mb-14 text-sm font-semibold text-[#6B706C]">Effective: {EFFECTIVE_DATE}</p>
         <article className="policy-copy">{children}</article>
       </main>
 
